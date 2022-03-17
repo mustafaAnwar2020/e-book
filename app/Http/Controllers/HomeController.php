@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +21,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $books = Book::when($request->search,function($q) use ($request){
+            return $q->whereTranslationLike('name','%' . $request->search . '%');
+        })->get();
+        return view('home')->with('books',$books);
     }
 }

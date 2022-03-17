@@ -9,5 +9,5 @@ class BookTranslation extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable = ['bio'];
+    protected $fillable = ['name','bio'];
 }

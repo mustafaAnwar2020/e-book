@@ -17,6 +17,7 @@ class CreateBookTranslationsTable extends Migration
             $table->increments('id');
             $table->integer('book_id')->unsigned();
             $table->string('locale')->index();
+            $table->string('name');
             $table->longText('bio');
 
             $table->unique(['book_id', 'locale']);

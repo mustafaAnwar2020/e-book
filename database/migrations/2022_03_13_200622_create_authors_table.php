@@ -15,10 +15,6 @@ class CreateAuthorsTable extends Migration
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('address');
-            $table->string('phone');
-            $table->integer('wallet');
             $table->string('img')->default('writer.png');
             $table->timestamps();
         });

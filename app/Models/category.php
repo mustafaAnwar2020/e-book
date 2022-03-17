@@ -11,4 +11,9 @@ class category extends Model
     public $translatedAttributes = ['name'];
     protected $guarded = [];
 
+
+    public function books()
+{
+    return $this->hasMany('App\Models\Book', 'category_id');
+}
 }

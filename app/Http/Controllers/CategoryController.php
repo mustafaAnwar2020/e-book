@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\category;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rule;
 class CategoryController extends Controller
 {
     /**
@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = category::all();
+        return view('categories.index')->with('categories',$category);
     }
 
     /**
@@ -24,62 +25,43 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $rules = [];
+        foreach(config('translatable.locales') as $locale)
+        {
+            $rules+=[$locale.'.name'=>['required',Rule::unique('category_translations','name')]];
+        }
+        $this->validate($request,$rules);
+        $category = category::create($request->all());
+        return redirect()->route('category.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\category  $category
-     * @return \Illuminate\Http\Response
-     */
     public function edit(category $category)
     {
-        //
+        return view('categories.edit')->with('category',$category);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\category  $category
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, category $category)
     {
-        //
+        $rules = [];
+        foreach(config('translatable.locales') as $locale)
+        {
+            $rules+=[$locale.'.name'=>['required',Rule::unique('category_translations','name')->ignore($category->id,'category_id')]];
+        }
+        $this->validate($request,$rules);
+        $category->update($request->all());
+        return redirect()->route('category.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\category  $category
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(category $category)
     {
-        //
+        $category->delete($category->id);
+        return redirect()->route('category.index');
     }
 }
