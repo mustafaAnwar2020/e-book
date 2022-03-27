@@ -1,5 +1,5 @@
-<ul class="c-header-nav ml-auto mr-4" >
-    {{-- <li class="dropdown tasks-menu">
+<ul class="c-header-nav ml-auto mr-4">
+    <li class="tasks-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa-solid fa-flag"></i></a>
         <ul class="dropdown-menu">
             <li>
@@ -15,26 +15,29 @@
                 </ul>
             </li>
         </ul>
-    </li> --}}
+    </li>
+
+
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span
+        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span
                 class="fa fa-cart-shopping"></span></a>
         <ul class="dropdown-menu dropdown-cart" role="menu">
             <li>
-                <form action="{{route('order.store')}}" method="POST">
+
+                <form action="{{ route('cart.store') }}" method="POST">
                     @csrf
-                    <span class="item">
+                        <span class="item">
 
-                    </span>
-                    <div class="cart-total">
-                        <strong class="cart-total-title">Total</strong>
-                        <span class="cart-total-price">$0</span>
-                    </div>
+                        </span>
+                        <div class="cart-total">
+                            <strong class="cart-total-title">Total</strong>
+                            <span class="cart-total-price">$0</span>
+                        </div>
 
-                    <button class="btn btn-primary btn-block disabled" id="add-order-form-btn"><i
-                        class="fa fa-plus"></i> @lang('site.add_order')</button>
+                        <button class="btn btn-primary btn-block disabled" id="add-order-form-btn"><i
+                                class="fa fa-plus"></i> @lang('site.add_order')</button>
                 </form>
-                <a href="{{route('order.cart')}}" class="btn btn-success btn-block">@lang('site.orders')</a>
+                <a href="{{ route('cart.index') }}" class="btn btn-success btn-block">@lang('site.orders')</a>
 
             </li>
         </ul>
@@ -56,7 +59,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right pt-0">
             <div class="dropdown-header bg-light py-2"><strong>Settings</strong></div>
-            <a class="dropdown-item" href="{{route('profile.index')}}">
+            <a class="dropdown-item" href="{{ route('profile.index') }}">
                 <i class="c-icon fas fa-fw fa-id-card mr-2"></i>
                 Profile</a>
             <div class="dropdown-divider"></div>

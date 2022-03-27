@@ -34,10 +34,6 @@
                         </dd>
                     </div>
                 </dl>
-
-                <button class="btn btn-success shop-item-button" type="button" >
-                    <i class="fa-solid fa-cart-shopping"></i>
-                </button>
             </article>
 
             <article class="lg:col-span-11 xl:col-span-15">
@@ -47,8 +43,13 @@
                         @lang('site.BookDesc')
                     </span>
                 </div>
-                {{$book->category->translate()->name}}
+
                 <div class="description text-gray-600 mb-6 leading-10 rtl" itemprop="description">
+                    <div class="open:bg-white open:ring-1 open:ring-black/5 open:shadow-lg p-6 rounded-lg">
+                            {{$book->category->translate()->name}}
+                    </div>
+
+
                     <div class="open:bg-white open:ring-1 open:ring-black/5 open:shadow-lg p-6 rounded-lg">
                         <p class="text-sm leading-8 text-gray-900 font-semibold select-none">
                            {{$book->translate()->bio}}

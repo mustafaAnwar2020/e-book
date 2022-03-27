@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Storage;
 class AuthorController extends Controller
 {
 
+    function __construct()
+    {
+        $this->middleware('permission:author-list|author-create|author-edit|author-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:author-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:author-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:author-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
         $authors = Author::all();

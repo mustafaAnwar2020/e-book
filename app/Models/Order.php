@@ -21,4 +21,14 @@ class Order extends Model
     {
         return $this->belongsToMany('App\Models\Book', 'table_books_orders')->withPivot('quantity');
     }
+
+    /**
+     * Get the cart t the Order
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function cart()
+    {
+        return $this->belongsTo('App\Models\Cart');
+    }
 }

@@ -3,7 +3,7 @@
 @section('content')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{route('category.create')}}">
+            <a class="btn btn-success" href="{{ route('category.create') }}">
                 Create Category
             </a>
         </div>
@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <input type="text" name="search" class="form-control" placeholder="@lang('site.search')"
-                                value="{{request()->search}}">
+                                value="{{ request()->search }}">
                         </div>
                         <div class="col-md-4">
                             <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>
@@ -31,28 +31,33 @@
                     <tr>
                         <th>#</th>
                         <th>@lang('site.name')</th>
-                        <th>@lang('site.action')</th>
+                        @can('category-edit')
+                            <th>@lang('site.action')</th>
+                        @endcan
+
                     </tr>
                 </thead>
                 <tbody>
                     @php
-                        $i=1;
+                        $i = 1;
                     @endphp
                     @foreach ($categories as $cat)
                         <tr>
-                            <td>{{ $i++}}</a></td>
+                            <td>{{ $i++ }}</a></td>
                             <td>{{ $cat->name }}</td>
-                            <td>
-                                <a class="btn btn-sm btn-info" href="{{ route('category.edit',$cat)}}">
-                                    @lang('site.edit')
-                                </a>
-                                <form action="{{route('category.destroy',$cat)}}" method="POST"
-                                    onsubmit="return confirm('Are your sure?');" style="display: inline-block;">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <input type="submit" class="btn btn-sm btn-danger" value="@lang('site.delete')">
-                                </form>
-                            </td>
+                            @can('category-edit')
+                                <td>
+                                    <a class="btn btn-sm btn-info" href="{{ route('category.edit', $cat) }}">
+                                        @lang('site.edit')
+                                    </a>
+                                    <form action="{{ route('category.destroy', $cat) }}" method="POST"
+                                        onsubmit="return confirm('Are your sure?');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-sm btn-danger" value="@lang('site.delete')">
+                                    </form>
+                                </td>
+                            @endcan
                         </tr>
                     @endforeach
                 </tbody>

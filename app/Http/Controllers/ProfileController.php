@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Profile;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -46,6 +47,7 @@ class ProfileController extends Controller
         return redirect()->route('profile.index');
     }
 
+
     public function changePassword(Request $request){
         $this->validate($request,[
             'oldPassword'=>'required|min:8|string',
@@ -62,4 +64,12 @@ class ProfileController extends Controller
         }
         return redirect()->route('profile.index');
     }
+
+    public function favouriteBooks(User $user){
+        $user->load(['books' => function ($query) {
+            $query->where('favourite', true)->with('authors');
+        }]);
+        return view('users.profile.favourite')->with('user',$user);
+    }
+
 }

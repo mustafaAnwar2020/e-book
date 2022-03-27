@@ -17,7 +17,6 @@
             </div>
         </form>
         <div class="shop-items">
-
             @foreach ($books as $item)
                 <div>
                     <div class="shop-item">
@@ -26,10 +25,14 @@
                         <img class="shop-item-image" src="{{ asset('uploads/books/' . $item->img) }}">
                         <div class="shop-item-details">
                             <span class="shop-item-price">${{ $item->price }}</span>
-                            <input type="hidden" value="{{$item->id}}" class="book-id">
-                            <button
-                                class="btn btn-success shop-item-button" type="button"><i
+                            <input type="hidden" value="{{ $item->id }}" class="book-id">
+                            <button class="btn btn-success shop-item-button" type="button"><i
                                     class="fa-solid fa-cart-shopping"></i></button>
+                            <form action="{{route('user.addFavourite',$item)}}" method="POST">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <button class="btn btn-warning"><i class="fa fa-star"></i></button>
+                            </form>
+
                         </div>
                         <div class="shop-item-details">
                             <span class="">
