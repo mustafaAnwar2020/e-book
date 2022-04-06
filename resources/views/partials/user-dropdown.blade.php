@@ -43,10 +43,10 @@
         </ul>
     </li>
     <li class="c-header-nav-item d-md-down-none mx-2">
-        <a class="c-header-nav-link" href="">
-            {{-- @if (auth()->user()->unreadNotifications->count())
+        <a class="c-header-nav-link" href="{{route('notifications.index')}}">
+            @if (auth()->user()->unreadNotifications->count())
                 <span class="badge rounded-pill bg-success">{{ auth()->user()->unreadNotifications->count() }}</span>
-            @endif --}}
+            @endif
             <i class="far fa-bell"></i>
         </a>
     </li>

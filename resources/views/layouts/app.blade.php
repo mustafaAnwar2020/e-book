@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
     <!-- CoreUI CSS -->
     <link href="{{ URL::asset('css/profile.css') }}" rel="stylesheet" />
+    <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet" />
     <link href="{{ URL::asset('css/shop.css') }}" rel="stylesheet" />
     <link href="{{ URL::asset('css/bootstrap-multiselect.css') }}" rel="stylesheet" />
 
@@ -39,7 +40,10 @@
         <div class="c-sidebar-brand d-lg-down-none">
             E-Book
         </div>
+        @auth
         @include('partials.menu')
+        @endauth
+
         <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent"
             data-class="c-sidebar-minimized"></button>
     </div>
@@ -54,8 +58,9 @@
                     <use xlink:href="assets/brand/coreui.svg#full"></use>
                 </svg>
             </a>
+            @auth
             @include('partials.user-dropdown')
-
+            @endauth
 
 
         </header>

@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Cart;
+use App\Models\User;
+
+
 
 class OrderController extends Controller
 {
@@ -17,7 +20,8 @@ class OrderController extends Controller
         return view('orders.index')->with('orders',$orders);
     }
 
-    public function create(Cart $cart){
+    public function create(){
+        $cart = Cart::where('user_id',Auth::id())->first();
         return view('orders.create')->with('cart',$cart);
 
     }
@@ -27,11 +31,11 @@ class OrderController extends Controller
             'books'=>'required|array',
         ]);
         $user = Auth::user();
-
-        $this->orderAttach($request,$user);
         $cart = Cart::where('user_id',Auth::id())->first();
-        $cart->delete($cart->id);
-        return redirect()->route('home.index');
+        $this->orderAttach($request,$user);
+
+
+        return redirect()->route('orders.create');
     }
 
     public function destroy(Order $order){
@@ -45,7 +49,9 @@ class OrderController extends Controller
         return redirect()->route('order.index');
     }
 
-
+    public function thankyou(){
+        return view('orders.thankyou');
+    }
     private function orderAttach($request,$user){
         $order = $user->orders()->create([]);
         $order->books()->attach($request->books);
@@ -64,5 +70,6 @@ class OrderController extends Controller
         $order->update([
             'total_price'=>$totalPrice,
         ]);
+
     }
 }

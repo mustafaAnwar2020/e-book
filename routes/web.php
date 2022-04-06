@@ -31,12 +31,16 @@ Route::middleware('auth')->group(function () {
         Route::post('/user/deleteFavouriteBook/{book}','App\Http\Controllers\UserController@deleteFavourite')->name('user.deleteFavourite');
         Route::resource('/users','App\Http\Controllers\UserController');
         Route::resource('/order', 'App\Http\Controllers\OrderController');
-        Route::get('/orders/create/{cart}', 'App\Http\Controllers\OrderController@create')->name('orders.create');
+        Route::get('/orders/create', 'App\Http\Controllers\OrderController@create')->name('orders.create');
+        Route::get('/orders/confirm','App\Http\Controllers\OrderController@thankyou')->name('order.confirm');
         Route::get('/cart', 'App\Http\Controllers\CartController@index')->name('cart.index');
         Route::post('/cart', 'App\Http\Controllers\CartController@store')->name('cart.store');
         Route::post('/cart/edit/{cart}', 'App\Http\Controllers\CartController@updateItem')->name('cart.updateItem');
         Route::delete('/cart/{book}', 'App\Http\Controllers\CartController@destroy')->name('cart.delete');
         Route::resource('/role','App\Http\Controllers\RoleController');
-
+        Route::get('/notifications','App\Http\Controllers\NotificationController@index')->name('notifications.index');
+        Route::put('/notification/update/{notification}','App\Http\Controllers\NotificationController@update')->name('notifications.update');
+        Route::delete('/notification/delete/','App\Http\Controllers\NotificationController@destroy')->name('notifications.destroy');
+        Route::post('/checkout/{cart}','App\Http\Controllers\checkoutController@store')->name('checkout');
     });
 });
